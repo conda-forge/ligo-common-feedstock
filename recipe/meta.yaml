@@ -1,25 +1,24 @@
+{% set name = "ligo-common" %}
 {% set version = "1.0.4" %}
 
 package:
-  name: ligo-common
-  version: {{ version }}
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
 
 source:
-  fn: ligo-common-{{ version }}.tar.gz
-  url: http://software.ligo.org/lscsoft/source/ligo-common-{{ version }}.tar.gz
-  md5: 142c2e287cc09bd0192c916a0be6e492
+  url: "http://software.ligo.org/lscsoft/source/{{ name }}-{{ version }}.tar.gz"
   sha256: 17baa0794a0ef411d58b587968eeed22e00b7cbdebd9d310b5801ec8ccc9f9f9
 
 build:
   number: 0
-  noarch: python
-  script: python -m pip install --no-deps --ignore-installed .
+  noarch: "python"
+  script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   build:
+    - pip
     - python
     - setuptools
-    - pip
   run:
     - python
     - setuptools
@@ -30,7 +29,9 @@ test:
 
 about:
   home: https://git.ligo.org/lscsoft/ligo-common
+  dev_url: https://git.ligo.org/lscsoft/ligo-common
   license: GPLv3
+  license_family: GPL
   license_file: LICENSE
   summary: Base package for `ligo` python namespace
 
